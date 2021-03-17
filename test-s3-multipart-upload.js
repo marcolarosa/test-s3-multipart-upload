@@ -2,6 +2,9 @@
 
 const {
   S3Client,
+  CompleteMultipartUploadCommand,
+  CreateMultipartUploadCommand,
+  UploadPartCommand,
 } = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
 const { createReadStream } = require('fs-extra');
@@ -27,9 +30,54 @@ const REGION="ap-southeast-2";
 */
 
 (async () => {
-	await v3MultipartUpload()
-  await v2MultipartUpload()
+	//await v3MultipartUpload()
+  await v3MultipartManualUpload()
+  //await v2MultipartUpload()
 })()
+
+
+async function v3MultipartManualUpload() {
+  const configuration = {
+    endpoint: S3_ENDPOINT,
+    credentials: {
+      accessKeyId: S3_ACCESS_KEY_ID,
+      secretAccessKey: S3_SECRET_ACCESS_KEY
+    },
+    region: REGION
+  }
+  const client = new S3Client(configuration);
+  const createMultipartUploadResult = await client.send(new CreateMultipartUploadCommand({
+    Bucket: S3_BUCKET,
+    Key: 'motd'
+   }));
+
+   const PartNumber = 1;
+   const partResult = await client.send(
+       new UploadPartCommand({
+          Bucket: S3_BUCKET,
+          Key: 'motd',
+          UploadId: createMultipartUploadResult.UploadId,
+          Body: "this is the first and only part",
+          PartNumber,
+       })
+    );
+    const uploadedParts = [];
+    uploadedParts.push({
+      PartNumber,
+      ETag: partResult.ETag,
+    });
+
+    const completeMultipartUpload = await client.send(
+      new CompleteMultipartUploadCommand({
+        Bucket: S3_BUCKET,
+        Key: 'motd',
+        UploadId: createMultipartUploadResult.UploadId,
+        MultipartUpload: {
+        Parts: uploadedParts,
+        },
+     })
+   );
+}
 
 
 async function v2MultipartUpload() {
