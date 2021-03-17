@@ -84,3 +84,7 @@ debian@modern-pdsc:~/src/test$ node test-s3-multipart-upload.js
   Bucket: 'ai.inteja.paradisec-tests'
 }
 ```
+
+## Using v2 sdk
+
+No issues with either endpoint.
