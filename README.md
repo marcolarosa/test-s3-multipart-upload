@@ -68,6 +68,7 @@ debian@modern-pdsc:~/src/test$ node test-s3-multipart-upload.js
 
 ## Results running against real S3
 
+```
 debian@modern-pdsc:~/src/test$ node test-s3-multipart-upload.js
 {
   loaded: 314,
@@ -76,3 +77,4 @@ debian@modern-pdsc:~/src/test$ node test-s3-multipart-upload.js
   Key: 'motd',
   Bucket: 'ai.inteja.paradisec-tests'
 }
+```
