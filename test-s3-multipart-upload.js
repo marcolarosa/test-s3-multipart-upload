@@ -1,24 +1,28 @@
-# vim: noai: ts=2 et
+// vim: noai: ts=2 et
 
+const {
+  S3Client,
+} = require("@aws-sdk/client-s3");
 const { Upload } = require("@aws-sdk/lib-storage");
+const { createReadStream } = require('fs-extra');
 
 const localPath = '/etc/motd'
 
 // Uncomment to test against fake UoM S3
-const S3_BUCKET="1190_pdsc_2020"
-const S3_ENDPOINT="https://objects.storage.unimelb.edu.au"
-const S3_ACCESS_KEY_ID=""
-const S3_SECRET_ACCESS_KEY=""
-const REGION="ap-southeast-2"
+/*
+const S3_BUCKET="";
+const S3_ENDPOINT="https://objects.storage.unimelb.edu.au";
+const S3_ACCESS_KEY_ID="";
+const S3_SECRET_ACCESS_KEY="";
+const REGION="ap-southeast-2";
+*/
 
 // Uncomment to test against real AWS S3
-/*
-const S3_BUCKET="ai.inteja.paradisec-tests"
-const S3_ENDPOINT="https://s3-ap-southeast-2.amazonaws.com"
-const S3_ACCESS_KEY_ID=""
-const S3_SECRET_ACCESS_KEY=""
-const REGION="ap-southeast-2"
-*/
+const S3_BUCKET="";
+const S3_ENDPOINT="https://s3-ap-southeast-2.amazonaws.com";
+const S3_ACCESS_KEY_ID="";
+const S3_SECRET_ACCESS_KEY="";
+const REGION="ap-southeast-2";
 
 (async () => {
     const configuration = {
@@ -39,7 +43,7 @@ const REGION="ap-southeast-2"
 
     const params = {
       Bucket: S3_BUCKET,
-      Key: target,
+      Key: 'motd',
       Body: fileStream
     };
 

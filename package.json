@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/lib-storage": "^3.8.1"
+    "@aws-sdk/client-s3": "^3.8.1",
+    "@aws-sdk/lib-storage": "^3.8.1",
+    "fs-extra": "^9.1.0"
   }
 }
