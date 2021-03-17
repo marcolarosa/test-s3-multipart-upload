@@ -3,6 +3,12 @@
 
 UoM S3 storage doesn't play well with AWS v3 JS SDK multi part upload.
 
+## Set up dependencies
+
+> npm install
+
+## Set up the required variables
+
 Edit the script `test-s3-multipart-upload.js` set the var's at the top:
 ```
 // Uncomment to test against fake UoM S3
@@ -25,9 +31,9 @@ const S3_SECRET_ACCESS_KEY="";
 const REGION="ap-southeast-2";
 ```
 
-The run it:
-> node ./test-s3-multipart-upload.js
+## Run it
 
+> node ./test-s3-multipart-upload.js
 
 ## Results running against UoM fake S3
 
